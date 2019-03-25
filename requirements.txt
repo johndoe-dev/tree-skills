@@ -1,0 +1,6 @@
+Flask==1.0.2
+flask-restplus==0.12.1
+py2neo==3.1.1
+pytest==4.3.1
+pytest-flask==0.14.0
+python-dotenv==0.10.1
