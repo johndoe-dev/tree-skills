@@ -1,14 +1,12 @@
-from py2neo import Graph, Node, Relationship
+from py2neo import Graph
 from environment.instance import Config
 
 
 config = Config()
 
-url = "http://127.0.0.1:7474" #config.NEO4J_URL
-username = "neo4j"
-password = "test"
-
-# http://neo4j:mypassword@1.2.3.4:7474/db/data/
-
-
-graph = Graph(url + '/db/data/', username=username, password=password)
+try:
+    graph = Graph(config.NEO4J_URL, username=config.NEO4J_USERNAME, password=config.NEO4J_PWD)
+# Throw a SocketError => Connection refused, we have to use the ip@ of the database container
+except Exception:
+    graph = Graph("http://{username}:{password}@{ip}"
+                  .format(username=config.NEO4J_USERNAME, password=config.NEO4J_PWD, ip=config.NEO4J_IP))
