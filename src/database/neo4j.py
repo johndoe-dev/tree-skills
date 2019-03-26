@@ -9,4 +9,6 @@ try:
 # Throw a SocketError => Connection refused, we have to use the ip@ of the database container
 except Exception:
     graph = Graph("http://{username}:{password}@{ip}"
-                  .format(username=config.NEO4J_USERNAME, password=config.NEO4J_PWD, ip=config.NEO4J_IP))
+                  .format(username=config.NEO4J_USERNAME,
+                          password=config.NEO4J_PWD,
+                          ip=config.NEO4J_IP))
