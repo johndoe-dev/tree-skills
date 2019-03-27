@@ -1,8 +1,7 @@
 from flask_restplus import Namespace, Resource, fields
 from models.book import book
 from database.neo4j import graph
-import json
-from json import dumps
+from utils.functions import graph_to_json
 
 
 ns = Namespace('books', description='Books related operations')
@@ -65,16 +64,16 @@ ns = Namespace('books', description='Books related operations')
 class BookList(Resource):
     @ns.marshal_list_with(book)
     def get(self):
-        result = dumps(graph.run('MATCH (book:Book) RETURN book').data())
-        r = json.loads(result)
-        print(r[0]["book"])
-        # return [serialize_genre(record['genre']) for record in result]
-        return r[0]["book"]
+        query = "MATCH (node:Book) RETURN node"
+        result = graph.run(query).data()
+        return graph_to_json(result, "node")
 
     @ns.expect(book, validate=True)
     @ns.marshal_with(book)
     def post(self):
         new_book = ns.payload["title"]
-        query = "CREATE({0}: Book {{title: {0}}})".format(new_book)
-        result = dumps(graph.run("CREATE({0}: Book {{title: '{0}'}})".format(new_book)).data())
-        return result
+        create_query = "CREATE({0}: Book {{title: '{0}'}})".format(new_book)
+        graph.run(create_query).data()
+        get_query = "MATCH (node: Book) WHERE node.title='{0}' RETURN node LIMIT 1".format(new_book)
+        get = graph.run(get_query).data()
+        return graph_to_json(get, "node")
