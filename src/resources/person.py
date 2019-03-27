@@ -1,8 +1,7 @@
 from flask_restplus import Namespace, Resource, fields
 from models.person import person
 from database.neo4j import graph
-import json
-from json import dumps
+from utils.functions import graph_to_json
 
 
 ns = Namespace('persons', description='Persons related operations')
@@ -12,16 +11,16 @@ ns = Namespace('persons', description='Persons related operations')
 class PersonList(Resource):
     @ns.marshal_list_with(person)
     def get(self):
-        result = dumps(graph.run('MATCH (book:Book) RETURN book').data())
-        r = json.loads(result)
-        print(r[0]["book"])
-        # return [serialize_genre(record['genre']) for record in result]
-        return r[0]["book"]
+        query = 'MATCH (node:Person) RETURN node'
+        result = graph.run(query).data()
+        return graph_to_json(result, "node")
 
     @ns.expect(person, validate=True)
     @ns.marshal_with(person)
     def post(self):
-        new_book = ns.payload["title"]
-        query = "CREATE({0}: Book {{title: {0}}})".format(new_book)
-        result = dumps(graph.run("CREATE({0}: Book {{title: '{0}'}})".format(new_book)).data())
-        return result
+        new_person = ns.payload["name"]
+        create_query = "CREATE({0}: Person {{name: '{0}'}})".format(new_person)
+        graph.run(create_query).data()
+        get_query = "MATCH (node:Person) WHERE node.name='{name}' RETURN node LIMIT 1".format(name=new_person)
+        get = graph.run(get_query).data()
+        return graph_to_json(get, "node")
