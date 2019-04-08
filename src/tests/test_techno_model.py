@@ -21,6 +21,11 @@ class TestTechnoModel(BaseTestCase):
         neo4j = self.techno.get(name="New name")
         self.assertTrue(neo4j.name == "New name")
 
+    def test_delete(self):
+        self.techno.delete("Python")
+        python = self.team.get(name="Python")
+        self.assertTrue(python is None)
+
     def test_relation(self):
         neo4j = self.techno.relation(rel="persons", name="Neo4j", target="person")[0]
         self.assertTrue(neo4j["person"] != [])
