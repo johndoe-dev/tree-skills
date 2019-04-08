@@ -54,7 +54,7 @@ class GraphModel(object):
             # Append person to list of persons
             selection_name = select.__class__.__name__.replace("Selection", "").lower()
             list_selection.append({
-                selection_name: {k: v for k, v in self.items(select)}
+                selection_name: select
             })
             # Init list of target from relation
             # Example: Techno
@@ -65,10 +65,10 @@ class GraphModel(object):
                 for target in select.__getattribute__(rel):
                     # Create dictionary of target
                     # Example : {"name": "NeO4j", "type": "Database", "Description": "Graph database"}
-                    sub_target = {k: v for k, v in self.items(target)}
+                    # sub_target.append(target) # {k: v for k, v in self.items(target)}
                     # Append target dictionary to targets list
                     # Example: [{"name": "Neo4j",...},{…},…]
-                    targets.append(sub_target)
+                    targets.append(target)
                     # get class name of targets
                     # Example: "techno"
                     if not target_name:
