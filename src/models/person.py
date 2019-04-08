@@ -57,11 +57,7 @@ class PersonModel(GraphModel):
     def delete_relation(self, rel, source_name, target):
         """Delete relation with GraphObject"""
         selection = self.get(source_name)
-        if not target:
-            selection.__getattribute__(rel).remove_all()
-        else:
-            selection.__getattribute__(rel).remove(target)
-
+        selection.__getattribute__(rel).remove(target)
         self.graph.push(selection)
 
 
