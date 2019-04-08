@@ -44,6 +44,9 @@ class TeamModel(GraphModel):
         if not selection:
             return None
 
+        for target in self.relation(rel="persons", name=name, target="person")[0]["person"]:
+            selection.__getattribute__("persons").remove(target)
+        self.graph.push(selection)
         self.graph.delete(selection)
         return selection
 
