@@ -21,6 +21,11 @@ class TestTeamModel(BaseTestCase):
         r1 = self.team.get(name="New name")
         self.assertTrue(r1.name == "New name")
 
+    def test_delete(self):
+        self.team.delete("R6")
+        r6 = self.team.get(name="R6")
+        self.assertTrue(r6 is None)
+
     def test_relation(self):
         r1 = self.team.relation(rel="persons", name="R1", target="person")[0]
         self.assertTrue(r1["person"] != [])
