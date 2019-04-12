@@ -72,6 +72,7 @@ get ip address of __neo4j__ and __neo4j-test__
 ```
 $ docker inspect -f "{{ .NetworkSettings.IPAddress }}" <containerNameOrId>
 ```
+Replace NEO4J_DATABASE_IP and NEO4J_DATABASE_IP_TEST
 #### Example:
 ```
 $ docker inspect -f "{{ .NetworkSettings.IPAddress }}" neo4j
