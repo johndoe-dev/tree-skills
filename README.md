@@ -29,7 +29,7 @@ $ export MY_SRC_CODE=your-path
 ```
 bind your code into /home/app directory, define  port and wordir
 ```
-$ sudo docker run -dit --name flask-restplus -p 5000:5000 -p 59153:59153 -v $MY_SRC_CODE:/home/app -w /home/app python:3.7.2-alpine
+$ sudo docker run -dit --name flask-api -p 5000:5000 -p 59153:59153 -v $MY_SRC_CODE:/home/app -w /home/app python:3.7.2-alpine
 ```
 install all required modules
 ```
