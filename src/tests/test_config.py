@@ -1,8 +1,13 @@
 import unittest
+import os
+from dotenv import load_dotenv
 from flask import current_app
 from flask_testing import TestCase
 from server.instance import Server
-from environment.instance import config
+from environment.instance import config, basedir
+
+
+load_dotenv(basedir)
 
 
 class TestDevelopmentConfig(TestCase):
@@ -15,10 +20,10 @@ class TestDevelopmentConfig(TestCase):
         self.assertTrue(self.create_app().config['DEBUG'] is True)
         self.assertFalse(current_app is None)
         self.assertTrue(
-            self.create_app().config['NEO4J_DATABASE_URL'] == 'http://localhost:7474/db/data/'
+            self.create_app().config['NEO4J_DATABASE_URL'] == os.environ.get("NEO4J_DATABASE_URL") + "/db/data/"
         )
         self.assertTrue(
-            self.create_app().config['NEO4J_DATABASE_IP'] == '172.18.0.3:7474 /db/data/'
+            self.create_app().config['NEO4J_DATABASE_IP'] == os.environ.get("NEO4J_DATABASE_IP") + " /db/data/"
         )
 
 
@@ -33,10 +38,10 @@ class TestTestingConfig(TestCase):
         self.assertTrue(self.create_app().config['DEBUG'])
         self.assertFalse(current_app is None)
         self.assertTrue(
-            self.create_app().config['NEO4J_DATABASE_URL'] == 'http://localhost:7475/db/data/'
+            self.create_app().config['NEO4J_DATABASE_URL'] == os.environ.get("NEO4J_DATABASE_URL_TEST") + "/db/data/"
         )
         self.assertTrue(
-            self.create_app().config['NEO4J_DATABASE_IP'] == '172.18.0.2:7474 /db/data/'
+            self.create_app().config['NEO4J_DATABASE_IP'] == os.environ.get("NEO4J_DATABASE_IP_TEST") + " /db/data/"
         )
 
 
