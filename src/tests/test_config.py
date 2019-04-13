@@ -1,13 +1,9 @@
 import unittest
 import os
-from dotenv import load_dotenv
 from flask import current_app
 from flask_testing import TestCase
 from server.instance import Server
-from environment.instance import config, basedir
-
-
-load_dotenv(basedir)
+from environment.instance import config
 
 
 class TestDevelopmentConfig(TestCase):
