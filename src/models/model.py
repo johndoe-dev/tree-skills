@@ -1,4 +1,5 @@
 from abc import abstractmethod
+from py2neo import Node, Relationship
 
 
 class GraphModel(object):
@@ -45,37 +46,37 @@ class GraphModel(object):
 
     def relation(self, rel, selection, target=None):
         """Get related object"""
-        # Init empty list of selection
-        list_selection = []
-        # Init target name of relation
-        target_name = target
-        # For each selection
-        for i, select in enumerate(selection):
-            # Append person to list of persons
-            selection_name = select.__class__.__name__.replace("Selection", "").lower()
-            list_selection.append({
-                selection_name: select
-            })
-            # Init list of target from relation
-            # Example: Techno
-            targets = []
-            # If relation exists
-            if select.__getattribute__(rel):
-                # For each target of relation
-                for target in select.__getattribute__(rel):
-                    # Create dictionary of target
-                    # Example : {"name": "NeO4j", "type": "Database", "Description": "Graph database"}
-                    # sub_target.append(target) # {k: v for k, v in self.items(target)}
-                    # Append target dictionary to targets list
-                    # Example: [{"name": "Neo4j",...},{…},…]
-                    targets.append(target)
-                    # get class name of targets
-                    # Example: "techno"
-                    if not target_name:
-                        target_name = target.__class__.__name__.lower()
-            # Append each person to list of persons
-            list_selection[i][target_name] = targets
-        return list_selection
+        # # Init empty list of selection
+        # list_selection = []
+        # # Init target name of relation
+        # target_name = target
+        # # For each selection
+        # for i, select in enumerate(selection):
+        #     # Append person to list of persons
+        #     selection_name = select.__class__.__name__.replace("Selection", "").lower()
+        #     list_selection.append({
+        #         selection_name: select
+        #     })
+        #     # Init list of target from relation
+        #     # Example: Techno
+        #     targets = []
+        #     # If relation exists
+        #     if select.__getattribute__(rel):
+        #         # For each target of relation
+        #         for target in select.__getattribute__(rel):
+        #             # Create dictionary of target
+        #             # Example : {"name": "NeO4j", "type": "Database", "Description": "Graph database"}
+        #             # sub_target.append(target) # {k: v for k, v in self.items(target)}
+        #             # Append target dictionary to targets list
+        #             # Example: [{"name": "Neo4j",...},{…},…]
+        #             targets.append(target)
+        #             # get class name of targets
+        #             # Example: "techno"
+        #             if not target_name:
+        #                 target_name = target.__class__.__name__.lower()
+        #     # Append each person to list of persons
+        #     list_selection[i][target_name] = targets
+        # return list_selection
 
     def add_relation(self, rel, selection, target):
         selection.__getattribute__(rel).add(target)
