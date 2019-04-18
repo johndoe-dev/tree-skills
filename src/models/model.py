@@ -51,7 +51,8 @@ class GraphModel(object):
         target_name = target
         # For each selection
         for i, select in enumerate(selection):
-            # Append person to list of persons
+            # Append graphModel to list of graphModel
+            # Example: Person
             selection_name = select.__class__.__name__.replace("Selection", "").lower()
             list_selection.append({
                 selection_name: select
@@ -73,7 +74,7 @@ class GraphModel(object):
                     # Example: "techno"
                     if not target_name:
                         target_name = target.__class__.__name__.lower()
-            # Append each person to list of persons
+            # Append each relation to graphModel (Example: Person)
             list_selection[i][target_name] = targets
         return list_selection
 
