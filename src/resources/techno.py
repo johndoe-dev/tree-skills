@@ -3,8 +3,8 @@ from models import PersonModel, TechnoModel
 from server.instance import server
 
 ns = Namespace("techs", description="Techno related operations", ordered=True)
-techno = TechnoModel(graph=server.graph, api=server.api)
-person = PersonModel(graph=server.graph, api=server.api)
+techno = TechnoModel(server)
+person = PersonModel(server)
 
 
 @ns.route("/")
