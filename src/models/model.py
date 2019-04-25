@@ -3,9 +3,9 @@ from abc import abstractmethod
 
 class GraphModel(object):
     """Class to handle update to database"""
-    def __init__(self, graph, api, class_name):
-        self.api = api
-        self.graph = graph
+    def __init__(self, server, class_name):
+        self.api = server.api
+        self.graph = server.graph
         self.graph_object = class_name
 
     @classmethod
@@ -78,15 +78,15 @@ class GraphModel(object):
             list_selection[i][target_name] = targets
         return list_selection
 
-    def add_relation(self, rel, selection, target):
-        selection.__getattribute__(rel).add(target)
+    def add_relation(self, rel, selection, target_object):
+        selection.__getattribute__(rel).add(target_object)
         self.graph.push(selection)
-        if self.check_relation(rel, selection, target):
+        if self.check_relation(rel, selection, target_object):
             return True
         return False
 
-    def check_relation(self, rel, selection, target):
-        target = {k: v for k, v in self.items(target)}
+    def check_relation(self, rel, selection, target_object):
+        target = {k: v for k, v in self.items(target_object)}
         if selection.__getattribute__(rel):
             for t in selection.__getattribute__(rel):
                 sub_target = {k: v for k, v in self.items(t)}
