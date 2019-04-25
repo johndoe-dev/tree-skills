@@ -4,8 +4,8 @@ from .model import GraphModel
 
 class PersonModel(GraphModel):
     """Person model to handle person node and related object"""
-    def __init__(self, graph, api):
-        super().__init__(graph, api, Person)
+    def __init__(self, server):
+        super().__init__(server, Person)
 
     def get(self, name, one=True):
         """get one or more person(s)"""
@@ -47,17 +47,17 @@ class PersonModel(GraphModel):
             selection = self.get(name, one=False)
         return super().relation(rel=rel, selection=selection, target=target)
 
-    def add_relation(self, rel, source_name, target):
+    def add_relation(self, rel, source_name, target_object):
         """Create relation with GraphObject"""
         selection = self.get(source_name)
-        if super().add_relation(rel, selection, target):
+        if super().add_relation(rel, selection, target_object):
             return self.relation(rel, source_name)
         return None
 
-    def delete_relation(self, rel, source_name, target):
+    def delete_relation(self, rel, source_name, target_object):
         """Delete relation with GraphObject"""
         selection = self.get(source_name)
-        selection.__getattribute__(rel).remove(target)
+        selection.__getattribute__(rel).remove(target_object)
         self.graph.push(selection)
 
 
