@@ -18,9 +18,9 @@ class BaseTestCase(TestCase):
 
     def setUp(self):
         self.server.database.create_all()
-        self.person = PersonModel(graph=self.server.graph, api=self.server.api)
-        self.team = TeamModel(graph=self.server.graph, api=self.server.api)
-        self.techno = TechnoModel(graph=self.server.graph, api=self.server.api)
+        self.person = PersonModel(self.server)
+        self.team = TeamModel(self.server)
+        self.techno = TechnoModel(self.server)
 
     def tearDown(self):
         self.server.database.delete_all()
