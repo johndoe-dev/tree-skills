@@ -3,8 +3,8 @@ from models import PersonModel, TeamModel
 from server.instance import server
 
 ns = Namespace("teams", description="Persons related operations", ordered=True)
-team = TeamModel(graph=server.graph, api=server.api)
-person = PersonModel(graph=server.graph, api=server.api)
+team = TeamModel(server)
+person = PersonModel(server)
 
 
 @ns.route("/")
