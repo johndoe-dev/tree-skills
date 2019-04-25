@@ -4,9 +4,9 @@ from server.instance import server
 
 
 ns = Namespace("persons", description="Persons related operations", ordered=True)
-person = PersonModel(graph=server.graph, api=server.api)
-techno = TechnoModel(graph=server.graph, api=server.api)
-team = TeamModel(graph=server.graph, api=server.api)
+person = PersonModel(server)
+techno = TechnoModel(server)
+team = TeamModel(server)
 
 
 @ns.route("/")
@@ -95,7 +95,7 @@ class PersonJamWithTechno(Resource):
     def post(self, person_name, techno_name):
         """Create relation between person and techno by JAM_WITH"""
         tech = techno.get(techno_name)
-        return person.add_relation(source_name=person_name, rel="JAM_WITH", target=tech), 201
+        return person.add_relation(source_name=person_name, rel="JAM_WITH", target_object=tech), 201
 
     @ns.doc("Delete relation between person and techno by JAM_WITH")
     @ns.marshal_with(person.model("PersonTechno"))
@@ -104,7 +104,7 @@ class PersonJamWithTechno(Resource):
     def delete(self, person_name, techno_name):
         """Delete relation between person and techno by JAM_WITH"""
         tech = techno.get(techno_name)
-        return person.delete_relation(source_name=person_name, rel="JAM_WITH", target=tech), 204
+        return person.delete_relation(source_name=person_name, rel="JAM_WITH", target_object=tech), 204
 
 
 @ns.route("/played_in")
@@ -138,7 +138,7 @@ class PersonJamWithTechno(Resource):
     def post(self, person_name, team_name):
         """Create relation between person and team by PLAYED_IN"""
         a_team = team.get(team_name)
-        return person.add_relation(source_name=person_name, rel="PLAYED_IN", target=a_team), 201
+        return person.add_relation(source_name=person_name, rel="PLAYED_IN", target_object=a_team), 201
 
     @ns.doc("Delete relation between person and team by PLAYED_IN")
     @ns.marshal_with(person.model("PersonTeam"))
@@ -147,4 +147,4 @@ class PersonJamWithTechno(Resource):
     def delete(self, person_name, team_name):
         """Delete relation between person and team by PLAYED_IN"""
         a_team = team.get(team_name)
-        person.delete_relation(source_name=person_name, rel="PLAYED_IN", target=a_team), 204
+        person.delete_relation(source_name=person_name, rel="PLAYED_IN", target_object=a_team), 204
