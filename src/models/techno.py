@@ -4,8 +4,8 @@ from .model import GraphModel
 
 class TechnoModel(GraphModel):
     """Techno model to handle techno node and related object"""
-    def __init__(self, graph, api):
-        super().__init__(graph, api, Techno)
+    def __init__(self, server):
+        super().__init__(server, Techno)
 
     def get(self, name, one=True):
         """Get one or more techno"""
