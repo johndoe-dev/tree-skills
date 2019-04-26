@@ -3,10 +3,10 @@ from abc import abstractmethod
 
 class GraphModel(object):
     """Class to handle update to database"""
-    def __init__(self, server, class_name):
+    def __init__(self, server, graph_object):
         self.api = server.api
         self.graph = server.graph
-        self.graph_object = class_name
+        self.graph_object = graph_object
 
     @classmethod
     def api(cls):
