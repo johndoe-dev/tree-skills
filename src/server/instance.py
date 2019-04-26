@@ -14,8 +14,8 @@ class Server(object):
         self._api = Api(
             self.blueprint,
             version='1.0',
-            title='Sample Book API',
-            description='A simple Book API',
+            title='Tree Skills API',
+            description='Tree Skills API',
             doc=self._app.config["SWAGGER_URL"],
             ordered=True
         )
