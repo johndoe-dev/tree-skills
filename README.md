@@ -91,19 +91,19 @@ NEO4J_DATABASE_IP_TEST=172.10.0.2:7474
 # RUN
 To create Database
 ```
-$ python src/main.py create_all
+$ flaska python src/main.py create_all
 ```
 To delete Database
 ```
-$ python src/main.py delete_all
+$ flaska python src/main.py delete_all
 ```
 To run tests
 ```
-$ python src/main.py test
+$ flaska python src/main.py test
 ```
 To run server
 ```
-$ python src/main.py run
+$ flaska python src/main.py run
 ```
 
 open http://localhost:5000/api/1/ in browser
