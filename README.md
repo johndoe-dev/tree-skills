@@ -21,7 +21,7 @@ or
 ```
 $ git clone https://gitlab.boost.open.global/open/squads/squad-new-dev/workshops/skills-mapping/tree-skills.git
 ```
-
+```
 $ cd your-project
 ```
 
