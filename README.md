@@ -13,7 +13,7 @@ python-dotenv  https://github.com/theskumar/python-dotenv
 ## INSTALLATION
 
 ```
-$ git clone https://github.com/johndoe-dev/flask_restplus.git
+$ git clone https://github.com/johndoe-dev/tree-skills.git
 ```
 
 ```
