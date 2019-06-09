@@ -1,6 +1,6 @@
 from flask_restplus import Namespace, Resource, abort
-from models import PersonModel, TeamModel
-from server.instance import server
+from src.models import PersonModel, TeamModel
+from src.server.instance import server
 
 ns = Namespace("teams", description="Persons related operations", ordered=True)
 team = TeamModel(server)
