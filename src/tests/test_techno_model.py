@@ -1,5 +1,5 @@
 import unittest
-from tests.base import BaseTestCase
+from src.tests.base import BaseTestCase
 
 
 class TestTechnoModel(BaseTestCase):
