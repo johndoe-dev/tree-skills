@@ -1,5 +1,5 @@
-from py2neo import Graph
-from errors import *
+from py2neo import Graph, authenticate
+from src.errors import *
 
 
 class Database:
@@ -22,10 +22,16 @@ class Database:
             ):
                 raise Neo4jAuthError
 
-            self._graph = Graph("http://{username}:{password}@{ip}"
-                                .format(username=app.config["NEO4J_DATABASE_USERNAME"],
-                                        password=app.config["NEO4J_DATABASE_PWD"],
-                                        ip=app.config["NEO4J_DATABASE_IP"]))
+            # self._graph = Graph("http://{username}:{password}@{ip}"
+            #                     .format(username=app.config["NEO4J_DATABASE_USERNAME"],
+            #                             password=app.config["NEO4J_DATABASE_PWD"],
+            #                             ip=app.config["NEO4J_DATABASE_IP"]))
+
+            authenticate(app.config["NEO4J_DATABASE_HOST"],
+                         app.config["NEO4J_DATABASE_USERNAME"],
+                         app.config["NEO4J_DATABASE_PWD"])
+            self._graph = Graph(app.config["NEO4J_DATABASE_URL"], bolt=False)
+
         except Neo4jUriError:
             print("NEO4J_DATABASE_URL or NEO4J_DATABASE_IP is not defined in app.config")
         except Neo4jAuthError:
