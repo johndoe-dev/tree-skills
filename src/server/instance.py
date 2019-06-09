@@ -1,8 +1,8 @@
 from flask import Flask, Blueprint
 from flask_script import Manager
 from flask_restplus import Api
-from environment.instance import config
-from database.neo4j import Database
+from src.environment.instance import config
+from src.database.neo4j import Database
 
 
 class Server(object):
