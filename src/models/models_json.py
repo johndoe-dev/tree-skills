@@ -1,5 +1,5 @@
 from flask_restplus import fields
-from server.instance import server
+from src.server.instance import server
 
 
 """Model use for Person"""
