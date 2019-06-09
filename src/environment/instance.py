@@ -20,6 +20,7 @@ class Config(object):
 class DevelopmentConfig(Config):
     DEBUG = True
     # Database connections
+    NEO4J_DATABASE_HOST = os.environ.get("NEO4J_DATABASE_URL").replace("http://", "")
     NEO4J_DATABASE_URL = os.environ.get("NEO4J_DATABASE_URL") + "/db/data/"
     NEO4J_DATABASE_IP = os.environ.get("NEO4J_DATABASE_IP") + " /db/data/"
 
@@ -28,6 +29,7 @@ class TestingConfig(Config):
     DEBUG = True
     TESTING = True
     # Database connections
+    NEO4J_DATABASE_HOST = os.environ.get("NEO4J_DATABASE_URL_TEST").replace("http://", "")
     NEO4J_DATABASE_URL = os.environ.get("NEO4J_DATABASE_URL_TEST") + "/db/data/"
     NEO4J_DATABASE_IP = os.environ.get("NEO4J_DATABASE_IP_TEST") + " /db/data/"
 
