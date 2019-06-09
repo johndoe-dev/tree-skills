@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  db:
+    image: neo4j:3.0
+    container_name: tree-skills_db
+    ports:
+      - '7474:7474'
+      - '7687:7687'
+    volumes:
+      - 'db:/data'
+      - 'db:/logs'
+
+  testdb:
+    image: neo4j:3.0
+    container_name: tree-skills_testdb
+    ports:
+      - '7475:7474'
+      - '7688:7687'
+    volumes:
+      - 'testdb:/data'
+      - 'testdb:/logs'
+  web:
+    container_name: tree-sills_web
+    build: '.'
+    env_file:
+      - '.env'
+    ports:
+      - '5000:5000'
+    volumes:
+      - '.:/home/app'
+    links:
+      - 'db:db'
+      - 'testdb:testdb'
+
+
+volumes:
+  db:
+  testdb:
