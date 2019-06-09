@@ -1,9 +1,9 @@
 from flask_testing import TestCase
-from environment.instance import config
-from server.instance import Server
-from models.person import PersonModel
-from models.team import TeamModel
-from models.techno import TechnoModel
+from src.environment.instance import config
+from src.server.instance import Server
+from src.models.person import PersonModel
+from src.models.team import TeamModel
+from src.models.techno import TechnoModel
 
 
 class BaseTestCase(TestCase):
