@@ -1,6 +1,6 @@
 from flask_restplus import Namespace, Resource, abort
-from models import PersonModel, TechnoModel
-from server.instance import server
+from src.models import PersonModel, TechnoModel
+from src.server.instance import server
 
 ns = Namespace("techs", description="Techno related operations", ordered=True)
 techno = TechnoModel(server)
