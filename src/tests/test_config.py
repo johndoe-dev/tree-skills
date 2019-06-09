@@ -2,8 +2,8 @@ import unittest
 import os
 from flask import current_app
 from flask_testing import TestCase
-from server.instance import Server
-from environment.instance import config
+from src.server.instance import Server
+from src.environment.instance import config
 
 
 class TestDevelopmentConfig(TestCase):
