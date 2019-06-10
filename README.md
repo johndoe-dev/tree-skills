@@ -7,7 +7,9 @@ Flask  http://flask.pocoo.org
 flask-restplus  https://flask-restplus.readthedocs.io/en/stable/  
 Flask-Script  https://flask-script.readthedocs.io/en/latest/  
 Flask-Testing  https://pythonhosted.org/Flask-Testing/  
-python-dotenv  https://github.com/theskumar/python-dotenv
+python-dotenv  https://github.com/theskumar/python-dotenv  
+docker https://www.docker.com  
+docker-compose https://docs.docker.com/compose/
 
 
 ## INSTALLATION
@@ -25,90 +27,65 @@ $ git clone https://gitlab.boost.open.global/open/squads/squad-new-dev/workshops
 $ cd your-project
 ```
 
-### DOCKER
+### DOCKER-COMPOSE
 
-### Install flask api
-Export your source code into an environment variable
+#### Install api and databases
+
+This command will the images, the containers and run the server
 ```
-$ export MY_SRC_CODE=your-path
-```
-bind your code into /home/app directory, define  port and wordir
-```
-$ sudo docker run -dit --name flask-api -p 5000:5000 -p 59153:59153 -v $MY_SRC_CODE:/home/app -w /home/app python:3.7.2-alpine
-```
-install all required modules
-```
-$ sudo docker exec -it flask-api pip install -r requirements.txt
-```
-Create an alias to execute command inside your container (optional)
-```
-$ alias flaska='sudo docker exec -it flask-api'
+$ docker-compose up --build
 ```
 
-### Install neo4j
-Create your volumes  
+Image built:  
++ tree-skills_web
+
+Containers created:
++ tree-skills_web
++ tree-skills_db
++ tree-skills_testdb
+
+Network created:
++ tree-skills_default
+
+#### Define neo4js password
+
+On browser, go to http://localhost:7474 for **db** and http://localhost:7474 for **test_db**
+
+Define password for each database
+
+In src/environment/instance, Change value of **NEO4J_DATABASE_PWD** (Default is "test")  
+The same password is used for db and test_db
+
+
+If you don't use "test" for db's password, you must rebuild:
+
+type ctrl+C to stop server, then:
+
 ```
-$ export NEO4J_VOL=your-path
-$ mkdir -p $NEO4J_VOL/data $NEO4J_VOL/logs
-```
-Launch this comand (it will pull and start container)
-```
-$ sudo docker run \
-    -dit \
-    --name=neo4j \
-    --publish=7474:7474 --publish=7687:7687 \
-    --volume=$NEO4J_VOL/data:/data \
-    --volume=$NEO4J_VOL/logs:/logs \
-    neo4j:3.0
-```
-For test
-```
-$ sudo docker run \
-    -dit \
-    --name=neo4j-test \
-    --publish=7475:7474 --publish=7688:7687 \
-    --volume=$NEO4J_VOL/data:/data \
-    --volume=$NEO4J_VOL/logs:/logs \
-    neo4j:3.0
+$ docker-compose up --build
 ```
 
-### Link containers
-get ip address of __neo4j__ and __neo4j-test__
-```
-$ docker inspect -f "{{ .NetworkSettings.IPAddress }}" <containerNameOrId>
-```
-Replace NEO4J_DATABASE_IP and NEO4J_DATABASE_IP_TEST
-#### Example:
-```
-$ docker inspect -f "{{ .NetworkSettings.IPAddress }}" neo4j
-172.10.0.1
-```
-```
-$ docker inspect -f "{{ .NetworkSettings.IPAddress }}" neo4j-test
-172.10.0.2
-```
-In __.env__ file:
-```
-NEO4J_DATABASE_IP=172.10.0.1:7474
-NEO4J_DATABASE_IP_TEST=172.10.0.2:7474
-```
+[Install without docker-compose](docs/WITHOUT_DOCKER-COMPOSE.md)
 
 # RUN
-To create Database
+
+**All this command must be run in another terminal**
+
+You can define an alias for your api:
 ```
-$ flaska python src/main.py create_all
+$ alias api='sudo docker exec -it tree-sills_web'
+```
+To create database
+```
+$ api python main.py create_all
 ```
 To delete Database
 ```
-$ flaska python src/main.py delete_all
+$ api python main.py delete_all
 ```
 To run tests
 ```
-$ flaska python src/main.py test
-```
-To run server
-```
-$ flaska python src/main.py run
+$ api python main.py test
 ```
 
 open http://localhost:5000/api/1/ in browser
