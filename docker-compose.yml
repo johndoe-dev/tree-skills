@@ -20,8 +20,9 @@ services:
     volumes:
       - 'testdb:/data'
       - 'testdb:/logs'
-  web:
-    container_name: tree-sills_web
+
+  api:
+    container_name: tree-sills_api
     build: '.'
     env_file:
       - '.env'
