@@ -37,10 +37,10 @@ $ docker-compose up --build
 ```
 
 Image built:  
-+ tree-skills_web
++ tree-skills_api
 
 Containers created:
-+ tree-skills_web
++ tree-skills_api
 + tree-skills_db
 + tree-skills_testdb
 
@@ -73,7 +73,7 @@ $ docker-compose up --build
 
 You can define an alias for your api:
 ```
-$ alias api='sudo docker exec -it tree-sills_web'
+$ alias api='sudo docker exec -it tree-skills_api'
 ```
 To create database
 ```
