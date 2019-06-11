@@ -22,7 +22,7 @@ services:
       - 'testdb:/logs'
 
   api:
-    container_name: tree-sills_api
+    container_name: tree-skills_api
     build: '.'
     env_file:
       - '.env'
