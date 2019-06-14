@@ -1,4 +1,4 @@
-# Flask api
+# Tree-skills Api
 Backend with database Neo4j
 # Development installation
 We use:  
